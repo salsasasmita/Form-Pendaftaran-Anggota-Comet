@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView tvHasil;
     Spinner spKelas;
     RadioButton rbLk, rbPr;
+    CheckBox cbWr, cbSp, cbGr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         spKelas = (Spinner) findViewById(R.id.spinnerKelas);
         rbLk = (RadioButton) findViewById(R.id.radioButtonLk);
         rbPr = (RadioButton) findViewById(R.id.radioButtonPr);
+        cbWr = (CheckBox) findViewById(R.id.checkBoxWr);
+        cbSp = (CheckBox) findViewById(R.id.checkBoxSp);
+        cbGr = (CheckBox) findViewById(R.id.checkBoxGr);
+
         btSm = (Button) findViewById(R.id.buttonSm);
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
 
@@ -41,12 +47,19 @@ public class MainActivity extends AppCompatActivity {
     private void doProcess() {
 
         String hasil = null;
+        String hasil2 = "\nHal yang ingin dikuasai : \n";
 
         if (rbLk.isChecked()) {
             hasil = rbLk.getText().toString();
         } else if (rbPr.isChecked()) {
             hasil = rbPr.getText().toString();
         }
+
+        int startlen = hasil2.length();
+        if (cbWr.isChecked()) hasil2 += "- " + cbWr.getText() + "\n";
+        if (cbSp.isChecked()) hasil2 += "- " + cbSp.getText() + "\n";
+        if (cbGr.isChecked()) hasil2 += "- " + cbGr.getText() + "\n";
+        if (hasil2.length() == startlen) hasil2 += "Tidak ada Pilihan";
 
         if (isValid()) {
             String panjang = etPanjang.getText().toString();
@@ -55,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
             tvHasil.setText(
                     "Nama Panjang    : " + panjang + "\nNama Panggilan : " + panggilan +
                             "\nKelas                   : " + spKelas.getSelectedItem().toString() +
-                            "\nGender                : " + hasil);
+                            "\nGender                : " + hasil +
+                            hasil2);
         }
     }
 
