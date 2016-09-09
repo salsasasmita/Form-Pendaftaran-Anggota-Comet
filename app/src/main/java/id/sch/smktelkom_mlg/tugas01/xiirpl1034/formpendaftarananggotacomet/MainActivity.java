@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     Button btSm;
     TextView tvHasil;
     Spinner spKelas;
+    RadioButton rbLk, rbPr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         etPanjang = (EditText) findViewById(R.id.editTextPanjang);
         etPanggilan = (EditText) findViewById(R.id.editTextPanggilan);
         spKelas = (Spinner) findViewById(R.id.spinnerKelas);
+        rbLk = (RadioButton) findViewById(R.id.radioButtonLk);
+        rbPr = (RadioButton) findViewById(R.id.radioButtonPr);
         btSm = (Button) findViewById(R.id.buttonSm);
         tvHasil = (TextView) findViewById(R.id.textViewHasil);
 
@@ -35,13 +39,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void doProcess() {
+
+        String hasil = null;
+
+        if (rbLk.isChecked()) {
+            hasil = rbLk.getText().toString();
+        } else if (rbPr.isChecked()) {
+            hasil = rbPr.getText().toString();
+        }
+
         if (isValid()) {
             String panjang = etPanjang.getText().toString();
             String panggilan = etPanggilan.getText().toString();
 
             tvHasil.setText(
                     "Nama Panjang    : " + panjang + "\nNama Panggilan : " + panggilan +
-                            "\nKelas                   : " + spKelas.getSelectedItem().toString());
+                            "\nKelas                   : " + spKelas.getSelectedItem().toString() +
+                            "\nGender                : " + hasil);
         }
     }
 
